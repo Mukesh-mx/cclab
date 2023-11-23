@@ -1,0 +1,160 @@
+gedit fact.c
+gcc fact.c -o fact
+./fact
+
+cd /media
+su root
+mkdir dog
+mount -t vboxsf simba dog
+
+
+    runtime: python27
+    api_version: 1
+    threadsafe: false
+    handlers:
+    - url: /
+    script: hello.py
+    python google-cloud-sdk\bin\dev_appserver.py "C:\Users\mukes\OneDrive\Desktop\app"
+
+
+
+
+1.  #include<stdio.h>
+    int main() {
+    int i, fact = 1, number;
+    printf("Enter a number: ");
+    scanf("%d", & number);
+    for (i = 1; i <= number; i++) {
+        fact = fact * i;
+    }
+    printf("Factorial of %d is: %d", number, fact);
+    return 0;
+    }
+
+2.  for even in range(4, 15, 2):
+        print(even, end=" ")
+
+3.  book = "Cloud computing"
+    price = 200
+    quantity = 2
+    print("BookName/t Price/t Quantity")
+    print(book, price, quantity)
+
+4.  import org.cloudbus.cloudsim.Datacenter;
+    import org.cloudbus.cloudsim.DatacenterBroker;
+    import org.cloudbus.cloudsim.PowerDatacenter;
+    import org.cloudbus.cloudsim.SimulationManager;
+    import org.cloudbus.cloudsim.cloudlet.Cloudlet;
+    import org.cloudbus.cloudsim.core.CloudSim;
+
+    import java.util.ArrayList;
+    import java.util.Comparator;
+    import java.util.List;
+
+    public class SJFScheduler {
+
+        public static void main(String[] args) {
+            try {
+                // Create a simulation manager
+                SimulationManager simulationManager = new SimulationManager();
+
+                // Create a datacenter
+                Datacenter datacenter = createDatacenter();
+
+                // Create a datacenter broker
+                SJFDatacenterBroker datacenterBroker = new SJFDatacenterBroker(datacenter, simulationManager);
+
+                // Create a cloudlet list
+                List<Cloudlet> cloudletList = createCloudletList();
+
+                // Submit cloudlets to the broker
+                datacenterBroker.setCloudletList(cloudletList);
+
+                // Start the simulation
+                simulationManager.start();
+
+                // Get the simulation results
+                List<Cloudlet> finishedCloudlets = simulationManager.getCloudletsFinishedList();
+                printSimulationResults(finishedCloudlets);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        private static Datacenter createDatacenter() {
+            PowerDatacenter datacenter = null;
+            try {
+                datacenter = new PowerDatacenter("Datacenter", "Xen", 1000, 10000, 10000);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return datacenter;
+        }
+
+        private static List<Cloudlet> createCloudletList() {
+            List<Cloudlet> cloudletList = new ArrayList<>();
+            for (int i = 0; i < 10; i++) {
+                Cloudlet cloudlet = new Cloudlet(i, 1000 + i * 100, 100 + i);
+                cloudletList.add(cloudlet);
+            }
+            return cloudletList;
+        }
+
+        private static void printSimulationResults(List<Cloudlet> finishedCloudlets) {
+            double averageWaitingTime = 0;
+            for (Cloudlet cloudlet : finishedCloudlets) {
+                averageWaitingTime += cloudlet.getWaitingTime();
+            }
+            averageWaitingTime /= finishedCloudlets.size();
+
+            System.out.println("Average waiting time: " + averageWaitingTime);
+        }
+    }
+
+    class SJFDatacenterBroker extends DatacenterBroker {
+
+        public SJFDatacenterBroker(Datacenter datacenter, SimulationManager simulationManager) {
+            super(datacenter, simulationManager);
+        }
+
+        @Override
+        protected void submitCloudlets() {
+            // Get the list of cloudlets
+            List<Cloudlet> cloudletList = getCloudletList();
+
+            // Sort cloudlets based on their estimated execution time
+            cloudletList.sort(Comparator.comparingDouble(cloudlet -> cloudlet.getCloudletLength()));
+
+            // Submit cloudlets to the datacenter
+            for (Cloudlet cloudlet : cloudletList) {
+                submitCloudlet(cloudlet);
+            }
+        }
+    }
+
+5.  ssh <your-username>@<your-vm-ip>
+    sudo apt update
+    sudo apt install default-jdk -y
+    wget https://downloads.apache.org/hadoop/common/hadoop-3.3.1/hadoop-3.3.1.tar.gz
+    tar -xzf hadoop-<version>.tar.gz
+    cd hadoop-<version>
+    # Edit configuration files using a text editor like nano or vim
+    nano etc/hadoop/core-site.xml
+    nano etc/hadoop/hdfs-site.xml
+    nano etc/hadoop/mapred-site.xml
+    nano etc/hadoop/yarn-site.xml
+    bin/hdfs namenode -format
+    sbin/start-dfs.sh
+    sbin/start-yarn.sh
+    sbin/stop-yarn.sh
+    sbin/stop-dfs.sh
+    # Exit SSH session
+    exit
+    # Shutdown or terminate the VM instance from the cloud provider's dashboard
+
+6.  bin/hdfs dfs -mkdir /input
+    echo "Hello World Bye World" > input.txt
+    bin/hdfs dfs -put input.txt /input
+    bin/hadoop jar share/hadoop/mapreduce/hadoop-mapreduce-examples-3.3.1.jar wordcount /input /output
+    bin/hdfs dfs -cat /output/part-r-00000
+
